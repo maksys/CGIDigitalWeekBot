@@ -19,7 +19,7 @@ namespace CGIDigitalWeekBot
         [LuisIntent("None")]
         public async Task None(IDialogContext context, LuisResult result)
         {
-            string message = $"Sorry, I did not understand '{result.Query}'. Type 'help' if you need assistance.";
+            string message = $"Je n'ai pas compris ce que vous voulez dire par '{result.Query}'. Demandez moi de l'aide ou appelez un de mes collègue à votre rescousse.";
 
             await context.PostAsync(message);
 
@@ -30,7 +30,7 @@ namespace CGIDigitalWeekBot
         [LuisIntent("Presentation")]
         public async Task Presentation(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
-            await context.PostAsync("Hi! Try asking me things like 'search hotels in Seattle', 'search hotels near LAX airport' or 'show me the reviews of The Bot Resort'");
+            await context.PostAsync("Bonjour Je m'appel CGO BOT je sais faire plein de choses'");
 
             context.Wait(this.MessageReceived);
         }
@@ -38,7 +38,7 @@ namespace CGIDigitalWeekBot
         [LuisIntent("Orientation")]
         public async Task Orientation(IDialogContext context, LuisResult result)
         {
-            string message = $"Sorry, I did not understand '{result.Query}'. Type 'help' if you need assistance.";
+            string message = $"Le '{result.Query}' est passé par ici, il repassera par là.";
 
             await context.PostAsync(message);
 
@@ -48,7 +48,7 @@ namespace CGIDigitalWeekBot
         [LuisIntent("Contenu")]
         public async Task Contenu(IDialogContext context, LuisResult result)
         {
-            string message = $"Sorry, I did not understand '{result.Query}'. Type 'help' if you need assistance.";
+            string message = $"CGI et le crédit Agricole travaillent ensemble.";
 
             await context.PostAsync(message);
 
@@ -57,7 +57,7 @@ namespace CGIDigitalWeekBot
         [LuisIntent("restauration")]
         public async Task Restauration(IDialogContext context, LuisResult result)
         {
-            string message = $"Sorry, I did not understand '{result.Query}'. Type 'help' if you need assistance.";
+            string message = $"CGI n'offre pas de service de restauration. Vous pouvez trouver des casse croute à l'entrée.";
 
             await context.PostAsync(message);
 
