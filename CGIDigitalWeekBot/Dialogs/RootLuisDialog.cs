@@ -17,12 +17,12 @@ namespace CGIDigitalWeekBot
     public class RootLuisDialog : LuisDialog<object>
     {
         //Défintion des entités LUIS
-        private const string Entity_IOT_Type = "Stand::iot";
-        private const string Entity_BC_Type = "Stand::block chain";
-        private const string Entity_Meava_Type = "Stand::maeva";
-        private const string Entity_Partner_Type = "Stand::partenariat";
-        private const string Entity_APIM_Type = "Stand::api management";
-        private const string Entity_CB_Type = "Stand::chat bot";
+        private const string Entity_IOT_Type = "stand::iot";
+        private const string Entity_BC_Type = "stand::block chain";
+        private const string Entity_Meava_Type = "stand::maeva";
+        private const string Entity_Partner_Type = "stand::partenariat";
+        private const string Entity_APIM_Type = "stand::api management";
+        private const string Entity_CB_Type = "stand::chat bot";
         private const string Entity_WC_Type = "Toilettes";
 
         //constante prenom du bot
@@ -115,7 +115,7 @@ namespace CGIDigitalWeekBot
             }
             else
             {
-                message = $"Je suis navré mais je ne sais pas vous aider concernant votre recherche '{result.Query}'. N'hésitez pas à questionner un de mes collègues.";
+                message = $"Je suis navré mais je ne peux pas  vous orienter vers '{result.Query}'. N'hésitez pas à questionner un de mes collègues.";
             }
 
             await context.PostAsync(message);
