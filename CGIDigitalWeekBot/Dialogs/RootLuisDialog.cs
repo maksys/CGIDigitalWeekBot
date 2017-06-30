@@ -30,7 +30,11 @@ namespace CGIDigitalWeekBot
 
         //Variable pour le prénom de l'utilisateur en cours
         public string UserName = "";
-        
+        //variables pour le reset de l'utlisateur
+        public DateTime DialogLast = new DateTime();
+        public DateTime DialogCurrent = new DateTime();
+        public TimeSpan InactivityTime = new TimeSpan();
+
 
         [LuisIntent("")]
         [LuisIntent("None")]
@@ -47,9 +51,18 @@ namespace CGIDigitalWeekBot
         [LuisIntent("Accueil")]
         public async Task Accueil(IDialogContext context, LuisResult result)
         {
-            var message = result;
-            PromptDialog.Text(context, ResumeAfterAccueilDialog, $"{message.Query}. {TextHelper.GetRndText(TextHelper.FormulesMonNom)} Serge. {TextHelper.GetRndText(TextHelper.FormulesTonNom)} ?");
+            //TODO :: effectuer le contrôle d'inactivité pour vider le user
 
+            if (string.IsNullOrEmpty(UserName))
+            {
+                //if (DialogStart.Millisecond == 0) DialogStart = DateTime.Now;
+                var message = result;
+                PromptDialog.Text(context, ResumeAfterAccueilDialog, $"{message.Query}. {TextHelper.GetRndText(TextHelper.FormulesMonNom)} {BotName}. {TextHelper.GetRndText(TextHelper.FormulesTonNom)} ?");
+            }
+            else
+            {
+                await context.PostAsync($"{TextHelper.GetRndText(TextHelper.FormulesDejaVu)} {UserName}.");
+            }
         }
         private async Task ResumeAfterAccueilDialog(IDialogContext context, IAwaitable<object> result)
         {
@@ -67,7 +80,7 @@ namespace CGIDigitalWeekBot
             context.Wait(this.MessageReceived);
         }
         #endregion
-
+        //Présentation du salon
         [LuisIntent("Presentation")]
         public async Task Presentation(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
@@ -78,7 +91,28 @@ namespace CGIDigitalWeekBot
 
             context.Wait(this.MessageReceived);
         }
-        //TODO :: intégrer un dico texhelper
+        //Présentation des stand
+        [LuisIntent("stand")]
+        public async Task Stand(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+
+            var message = result;
+            await context.PostAsync(TextHelper.GetRndText(TextHelper.ListeStands));
+
+            context.Wait(this.MessageReceived);
+        }
+
+        //Présentation des stand
+        [LuisIntent("bot")]
+        public async Task Bot(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+
+            var message = result;
+            await context.PostAsync(TextHelper.GetRndText(TextHelper.FormulesPrezBot));
+
+            context.Wait(this.MessageReceived);
+        }
+        //Orientation vers les stands
         [LuisIntent("Orientation")]
         public async Task Orientation(IDialogContext context, LuisResult result)
         {
@@ -87,31 +121,31 @@ namespace CGIDigitalWeekBot
             EntityRecommendation entityreco;
             if (result.TryFindEntity(Entity_IOT_Type, out entityreco))
             {
-                message = "Le stand IOT est réparti sur toute l'expostion CGI.";
+                message = TextHelper.GetRndText(TextHelper.OrientationIOT);
             }
             else if (result.TryFindEntity(Entity_CB_Type, out entityreco))
             {
-                message = "Je suis juste devant vous.";
+                message = TextHelper.GetRndText(TextHelper.OrientationChatBot);
             }
             else if (result.TryFindEntity(Entity_APIM_Type, out entityreco))
             {
-                message = "Les stand sur nos savoirs faire en matière d'api management est juste à votre gauche.";
+                message = TextHelper.GetRndText(TextHelper.OrientationAPIMANAGEMENT);
             }
             else if (result.TryFindEntity(Entity_BC_Type, out entityreco))
             {
-                message = "Ce stand se situe au fond à droite. Un espace ludique vous attends pour démontrer la puissance du Block Chain. N'hésitez pas à participer.";
+                message = TextHelper.GetRndText(TextHelper.OrientationBLOCKCHAIN);
             }
             else if (result.TryFindEntity(Entity_Meava_Type, out entityreco))
             {
-                message = "La démonstration de notre solution Maeva est positionnée juste à votre droite.";
+                message = TextHelper.GetRndText(TextHelper.OrientationMaeva);
             }
             else if (result.TryFindEntity(Entity_Partner_Type, out entityreco))
             {
-                message = "L'espace qui expose notre relation partenaire avec le Crédit Agricole est au fond à gauche.";
+                message = TextHelper.GetRndText(TextHelper.OrientationVILLAGECA);
             }
             else if (result.TryFindEntity(Entity_WC_Type, out entityreco))
             {
-                message = "Il y a deux espaces de comodités. Un près de l'entrée du village, l'autre près de la sortie de secours au fond du hall.";
+                message = TextHelper.GetRndText(TextHelper.OrientationWC);
             }
             else
             {
@@ -127,48 +161,44 @@ namespace CGIDigitalWeekBot
         public async Task Contenu(IDialogContext context, LuisResult result)
         {
             string message = "";
-            var res = result;
-            if (res.Entities.Count > 0 || res.CompositeEntities.Count > 0)
-            {
-                var t = res.Entities.Select(e => e.Score).Max();
-                foreach (var entity in res.Entities)
-                {
-                    switch (entity.Type)
-                    {
-                        case "stand::iot":
-                            message = "L'internet des objets est un concept de mise en oeuvre autour d'objets qui communiquent avec des système centraux.";
-                            break;
-                        case "stand::block chain":
-                            message = "Le Block Chain est une base de données distribuée transparente, sécurisée, et fonctionnant sans organe central de contrôle.";
-                            break;
-                        case "stand::partenariat":
-                            message = "CGI aime le crédit agricole.";
-                            break;
-                        case "stand::maeva":
-                            message = "Maeva est une solution logicielle CGI qui permet de dématérialiser les procédures de maintenance et assister les intervenants à distance.";
-                            break;
-                        case "stand::api management":
-                            message = "l'API Management est le processus qui consiste à publier, promouvoir et superviser les interfaces de programmation d'applications au sein d'un environnement sécurisé et évolutif.";
-                            break;
-                        case "stand::chat bot":
-                            message = "Je suis un assistant conversationnel basé sur la reconnaisance du langage naturel couplé à des fonctionnalités d'intelligence artificielles.";
-                            break;
-                        case "Toilettes":
-                            message = "C'est un lieu qui permet aux humains de satisfaire certains de leurs besoins physilogiques. J'en suis par chance épargné.";
-                            break;
-                        case "Stand":
-                            message = "Nous disposons de cinq espaces de démonstration sur les thèmes suivants ; Chat Bot, Internet des Objets, Api mamangement, Block Chain et Maeva plus un espace débié à notre partenariat avec le Village Crédit Agricole.";
-                            break;
 
-                        default:
-                            break;
-                    }
-                }
+            EntityRecommendation entityreco;
+            if (result.TryFindEntity(Entity_IOT_Type, out entityreco))
+            {
+                message = TextHelper.GetRndText(TextHelper.ContenuIOT);
+            }
+            else if (result.TryFindEntity(Entity_CB_Type, out entityreco))
+            {
+                message = TextHelper.GetRndText(TextHelper.ContenuCHATBOT);
+            }
+            else if (result.TryFindEntity(Entity_APIM_Type, out entityreco))
+            {
+                message = TextHelper.GetRndText(TextHelper.ContenuAPIMANAGEMENT);
+            }
+            else if (result.TryFindEntity(Entity_BC_Type, out entityreco))
+            {
+                message = TextHelper.GetRndText(TextHelper.ContenuBLOCKCHAIN);
+            }
+            else if (result.TryFindEntity(Entity_Meava_Type, out entityreco))
+            {
+                message = TextHelper.GetRndText(TextHelper.ContenuMAEVA);
+            }
+            else if (result.TryFindEntity(Entity_Partner_Type, out entityreco))
+            {
+                message = TextHelper.GetRndText(TextHelper.ContenuVILLAGECA);
+            }
+            else if (result.TryFindEntity(Entity_WC_Type, out entityreco))
+            {
+                message = TextHelper.GetRndText(TextHelper.ContenuWC);
             }
             else
             {
-                message = $"Je ne connais pas encore '{result.Query}'. N'hésitez pas à demander à un de mes collègues.";
+                message = $"Je suis navré mais je ne peux pas  vous orienter vers '{result.Query}'. N'hésitez pas à questionner un de mes collègues.";
             }
+            //else
+            //{
+            //    message = $"Je ne connais pas encore '{result.Query}'. N'hésitez pas à demander à un de mes collègues.";
+            //}
             await context.PostAsync(message);
 
             context.Wait(this.MessageReceived);
@@ -177,7 +207,7 @@ namespace CGIDigitalWeekBot
         [LuisIntent("restauration")]
         public async Task Restauration(IDialogContext context, LuisResult result)
         {
-            string message = $"CGI n'offre pas de service de restauration. Il y a un restaurant à votre disposition au centre de cet espace.";
+            string message = $"CGI n'offre pas de service de restauration. Il y a un restaurant à votre disposition au rez de chaussée.";
 
             await context.PostAsync(message);
 
@@ -228,7 +258,7 @@ namespace CGIDigitalWeekBot
 
         private async Task ResumeAfterGeneseDialog(IDialogContext context, IAwaitable<bool> result)
         {
-            var resultFromPlusInfosCGI= await result;
+            var resultFromPlusInfosCGI = await result;
             string message;
             if (resultFromPlusInfosCGI)
             {
