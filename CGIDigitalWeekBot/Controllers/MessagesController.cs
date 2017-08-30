@@ -14,6 +14,10 @@ namespace CGIDigitalWeekBot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+
+        //variable pour le stockage des métadonnées emotion + direction
+        public string Metadatas = string.Empty;
+
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
@@ -36,6 +40,7 @@ namespace CGIDigitalWeekBot
                 HandleSystemMessage(activity);
             }
             var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Headers.Add("Metadata", TextHelper.GetMetadatas());
             return response;
         }
 

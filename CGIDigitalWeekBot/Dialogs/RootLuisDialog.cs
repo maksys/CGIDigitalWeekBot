@@ -12,6 +12,8 @@ using System.Threading;
 
 namespace CGIDigitalWeekBot
 {
+
+
     [Serializable]
     [LuisModel("bb5d41fe-72cc-4eca-a831-c6589cf7ffcc", "510379c0ade04cf68ce0fa435024a7e0")]
     public class RootLuisDialog : LuisDialog<object>
@@ -29,12 +31,9 @@ namespace CGIDigitalWeekBot
         //constante prenom du bot
         public const string BotName = "Natacha";
 
-        //Variable pour le prénom de l'utilisateur en cours
-        public string UserName = "";
-        //variables pour le reset de l'utlisateur
-        public DateTime DialogLast = new DateTime();
-        public DateTime DialogCurrent = new DateTime();
-        public TimeSpan InactivityTime = new TimeSpan();
+        //variable pour le stockage des métadonnées emotion + direction
+        //public string Metadatas = string.Empty;
+
         //Variable pour le stockge de contexte entre les différentes questions
         EntityRecommendation ContextEntity;
 
@@ -54,8 +53,9 @@ namespace CGIDigitalWeekBot
         public async Task Accueil(IDialogContext context, LuisResult result)
         {
             var message = result;
+            TextHelper.SetMetadatas("", "accueill heureux");
             //await context.Forward(new PresentationDialog(), this.ResumeAfterPresentationDialog, message, CancellationToken.None);
-            await context.PostAsync(TextHelper.GetRndText(TextHelper.FormulesMonNom) + TextHelper.GetRndText(TextHelper.FormulesQuefaire));
+            await context.PostAsync(TextHelper.GetRndText(TextHelper.FormulesMonNom) + " " + BotName + ". " + TextHelper.GetRndText(TextHelper.FormulesQuefaire) + "?");
 
             context.Wait(this.MessageReceived);
         }
@@ -256,10 +256,10 @@ namespace CGIDigitalWeekBot
         [LuisIntent("Fin")]
         public async Task Fin(IDialogContext context, LuisResult result)
         {
-            string message = $"{TextHelper.GetRndText(TextHelper.FormulesAurevoir)} {UserName}.";
+            string message = $"{TextHelper.GetRndText(TextHelper.FormulesAurevoir)}.";
             await context.PostAsync(message);
             context.Wait(this.MessageReceived);
-            UserName = string.Empty;
+
         }
 
         [LuisIntent("Patron")]

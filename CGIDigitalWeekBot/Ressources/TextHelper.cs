@@ -7,9 +7,12 @@ namespace CGIDigitalWeekBot
 {
     public static class TextHelper
     {
+        //variable pour le stockage des métadonnées emotion + direction
+        private static string Metadatas = string.Empty;
+
 
         #region DICTIONNAIRES DES REPONSES
-        
+
         public static Dictionary<int, string> FormulesQuefaire = new Dictionary<int, string>() {
             { 0,"Comment puis-je vous aider"},
             { 1,"Que puis-je faire pour vous"},
@@ -133,17 +136,17 @@ namespace CGIDigitalWeekBot
         public static Dictionary<int, string> ContenuCHATBOT = new Dictionary<int, string>() {
             { 0,"Je suis un assistant conversationnel basé sur la reconnaisance du langage naturel couplé à des fonctionnalités d'intelligence artificielles."},
             { 1,"Un tchat boat est un service de conversation intelligent et autonomme."},
-            { 2,"Un tchat boat est un robot logiciel pouvant dialoguer avec un individu ou consommateur par le biais d’un service de conversations automatisées effectuées en grande partie en langage naturel"}
+            { 2,"Un tchat boat est un robot logiciel pouvant dialoguer avec un individu ou consommateur par le biais d’un service de conversations automatisées effectuées en langage naturel"}
         };
         public static Dictionary<int, string> ContenuAPIMANAGEMENT = new Dictionary<int, string>() {
-            { 0,"L'API Management est le processus qui consiste à publier, promouvoir et superviser les interfaces de programmation d'applications au sein d'un environnement sécurisé et évolutif."},
-            { 1,"L'API Management aide les organisations à publier des API pour des développeurs externes, partenaires et internes, afin de libérer le potentiel de leurs données et services."},
-            { 2,"L'API Management c’est un proxy entre votre API et le reste du monde. Cela vous permet de gérer la sécurité, le rate limiting, la facturation de l’API, avoir des stats d’usage et des alertes en cas d’erreurs."}
+            { 0,"L'A.P.I Managemente permet de publier, promouvoir et superviser les interfaces de programmation."},
+            { 1,"L'A.P.I Managemente aide les organisations à publier des API pour des développeurs externes, partenaires et internes."},
+            { 2,"L'A.P.I Managemente c’est un proxy entre vos API et le reste du monde."}
         };
         public static Dictionary<int, string> ContenuBLOCKCHAIN = new Dictionary<int, string>() {
-            { 0,"La Block Chaine est une base de données distribuée transparente, sécurisée, et fonctionnant sans organe central de contrôle."},
-            { 1,"La block chaine est une technologie de stockage et de transmission d’informations, transparente, sécurisée, et fonctionnant sans organe central de contrôle"},
-            { 2,"La block chaine est souvent comparée à internet. Internet transfère des paquets de données d’un point A à un point B, alors que la blockchain permet à la « confiance » de s’établir entre des parties distinctes du système"}
+            { 0,"La Block Chaine est une base de données distribuée transparente, sécurisée."},
+            { 1,"La block chaine est une technologie de stockage et de transmission d’informations, transparente et sécurisée."},
+            { 2,"La block chaine est souvent comparée à internet. Internet transfère des paquets de données d’un point A à un point B, alors que la blockchain permet à la confiance de s’établir entre des parties distinctes du système"}
         };
         public static Dictionary<int, string> ContenuMAEVA = new Dictionary<int, string>() {
             { 0,"Maeva est une solution logicielle CGI qui permet de dématérialiser les procédures de maintenance et d'assister les intervenants à distance."},
@@ -184,6 +187,18 @@ namespace CGIDigitalWeekBot
             int formuleNb = rd.Next(0, rsxText.Count);
             string message = rsxText[formuleNb];
             return message;
+        }
+
+
+        public static void SetMetadatas(string type, string value)
+        {
+            Metadatas = value;
+
+        }
+
+        public static string GetMetadatas()
+        {
+            return Metadatas;
         }
     }
 }
