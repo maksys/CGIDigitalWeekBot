@@ -51,7 +51,7 @@ namespace CGIDigitalWeekBot
             Random rd = new Random(DateTime.Now.Millisecond);
             int tonNomValue = rd.Next(0, FormulesTonNom.Count);
             int monNomValue = rd.Next(0, FormulesMonNom.Count);
-            PromptDialog.Text(context, ResumeAfterAccueilDialog, $"{message.Text}. {FormulesMonNom[monNomValue]} Serge. {FormulesTonNom[tonNomValue]} ?");
+            PromptDialog.Text(context, ResumeAfterAccueilDialog, $"{message.Text}. {FormulesMonNom[monNomValue]} {RootLuisDialog.BotName}. {FormulesTonNom[tonNomValue]} ?");
             
             context.Wait(this.MessageReceivedAsync);
         }

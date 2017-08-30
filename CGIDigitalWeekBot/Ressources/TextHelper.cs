@@ -9,6 +9,7 @@ namespace CGIDigitalWeekBot
     {
 
         #region DICTIONNAIRES DES REPONSES
+        
         public static Dictionary<int, string> FormulesQuefaire = new Dictionary<int, string>() {
             { 0,"Comment puis-je vous aider"},
             { 1,"Que puis-je faire pour vous"},
@@ -58,7 +59,7 @@ namespace CGIDigitalWeekBot
         };
         
         public static Dictionary<int, string> FormulesMemePrenom = new Dictionary<int, string>() {
-            { 0,"Je suis joyeux à l'idée que vous ayez le même prénom que moi"},
+            { 0,"Je suis joyeuse à l'idée que vous ayez le même prénom que moi"},
             { 1,"Comme c'est drôle, nous avons le même prénom"},
             { 2,"Avec le même prénom nous nous ressemblons un peu"},
             { 3,"J'adore l'idée de m'appeler comme vous"},
@@ -73,7 +74,7 @@ namespace CGIDigitalWeekBot
 
         public static Dictionary<int, string> FormulesPrezSalon = new Dictionary<int, string>() {
             { 0,"CGI participe à la Digital Week pour exposer ses savoir faire au travers de cinq stands de démonstration."},
-            { 1,"Nous avons des stands pour présenter nos savoir faire sur l'innovation et les tendances des SI."},
+            { 1,"Nous avons des stands pour présenter nos savoir faire sur l'innovation et les tendances des S I."},
             { 2,"Des démonstrations vont vous permettre de découvrir des produits innovants ainsi que des produits incontournables."},
             { 3,"Nous présentons des solutions intégrées aussi bien que de solution propriété de CGI."},
             { 4,"CGI présente des démonstrations de ses produits et de ses savoir faire."},
@@ -82,32 +83,32 @@ namespace CGIDigitalWeekBot
 
 
         public static Dictionary<int, string> ListeStands = new Dictionary<int, string>() {
-            { 0,"Nous proposons six stands autour de notre solution Maeva, de l'Api management, du Block Chain, des Objets connectés, des Chat Bot et enfin de notre partenariat avec le Village CA."},
-            { 1,"Nous disposons de six espaces de démonstration sur les thèmes suivants ; Chat Bot, Internet des Objets, Api mamangement, Block Chain et Maeva plus un espace débié à notre partenariat avec le Village Crédit Agricole."},
-            { 2,"Vous pouvez voir des démonstration sur les objets connecté, Maeva, L'api management, Le Block Chain, les Chat Bot et bien sur notre pratenariat avec le Village Crédit Agricole."},
-            { 3,"Six espaces sont à votre disposition pour découvrir notre partanariat avec le village, notre solution maeva, les chats bots, l'Api Management, les Block Chain et les objets connectés."}
+            { 0,"Nous proposons six stands autour de notre solution Maeva, de l'Api managemente, du Block Chaine, des Objets connectés, des Chat Bot et enfin de notre partenariat avec le Village CA."},
+            { 1,"Nous disposons de six espaces de démonstration sur les thèmes suivants ; Tchat Bot, Internet des Objets, Api mamangemente, Block Chaine et Maeva plus un espace débié à notre partenariat avec le Village Crédit Agricole."},
+            { 2,"Vous pouvez voir des démonstration sur les objets connecté, Maeva, L'api managemente, Le Block Chaine, les Tchat Boat et bien sur notre pratenariat avec le Village Crédit Agricole."},
+            { 3,"Six espaces sont à votre disposition pour découvrir notre partanariat avec le village, notre solution maeva, les tchats bots, l'Api Managemente, les Block Chaine et les objets connectés."}
         };
 
 
         public static Dictionary<int, string> OrientationIOT = new Dictionary<int, string>() {
-            { 0,"Le stand des objects connectés juste sur votre droite mais les objets sont répartis sur chaque stand."},
-            { 1,"La demonstratioin des objets connectés est en face des escaliers."},
+            { 0,"Le stand des objects connectés est juste sur votre droite mais les objets sont répartis sur chaque stand."},
+            { 1,"La demonstration des objets connectés est en face des escaliers."},
             { 2,"les objets connectés sont sur tous les stands et les informations centralisée à gauche des portes."},
             { 3,"L'espace de démonstration est situé immédiatement sur votre droite."}
         };
         public static Dictionary<int, string> OrientationChatBot = new Dictionary<int, string>() {
-            { 0,"Le chatbot est devant vous. Le stand de présentation est à votre droite."},
-            { 1,"Je suis en face de vous. un détail de mon fonctionnement est disponible à gauche des portes qui mènent aux autres stands."},
+            { 0,"Le tchat boat est devant vous. Le stand de présentation est à votre droite."},
+            { 1,"Je suis en face de vous. Un détail sur mon fonctionnement est disponible à gauche des portes qui mènent aux autres stands."},
             { 2,"Je suis là. Le stand de détail est en face de l'escaliler."}
         };
         public static Dictionary<int, string> OrientationMaeva = new Dictionary<int, string>() {
-            { 0,"La démonstration de maeva se situe dans la salle à l'arrière à droite en entrant."},
-            { 1,"Le stand Meava est immédiatement à droite après les portes."},
-            { 2,"Vous trouverez Maeva dans la partie arrière de cet espace sur la droite."},
+            { 0,"La démonstration de maeva se situe dans la salle du fond en face de vous en entrant."},
+            { 1,"Le stand Meava est immédiatement après les portes."},
+            { 2,"Vous trouverez Maeva dans la partie arrière de cet espace juste après les portes."},
         };
         public static Dictionary<int, string> OrientationAPIMANAGEMENT = new Dictionary<int, string>() {
-            { 0,"La délonstration API Management est à gauche après les doubles portes."},
-            { 1,"Le stand API Management est situé à gauche dans la salle de derrière."}
+            { 0,"La démonstration API Managemente est à droite après les doubles portes."},
+            { 1,"Le stand API Managemente est situé à droite dans la salle du fond."}
         };
         public static Dictionary<int, string> OrientationVILLAGECA = new Dictionary<int, string>() {
             { 0,"L'espace de communication sur notre partenariat est juste derrière moi."},
@@ -115,7 +116,7 @@ namespace CGIDigitalWeekBot
         };
         public static Dictionary<int, string> OrientationBLOCKCHAIN = new Dictionary<int, string>() {
             { 0,"Le stand Block Chain se trouve tout au fond à gauche de l'espace après les portes."},
-            { 1,"L'activité Block Chain est placé après les portes au fond de la salle."}
+            { 1,"L'activité Block Chain est placé après les portes au fond à gauche de la salle."}
         };
 
         public static Dictionary<int, string> OrientationWC = new Dictionary<int, string>() {
@@ -131,28 +132,29 @@ namespace CGIDigitalWeekBot
         };
         public static Dictionary<int, string> ContenuCHATBOT = new Dictionary<int, string>() {
             { 0,"Je suis un assistant conversationnel basé sur la reconnaisance du langage naturel couplé à des fonctionnalités d'intelligence artificielles."},
-            { 1,"todo contenu chat 2"},
-            { 2,"todo contenu chat 3"}
+            { 1,"Un tchat boat est un service de conversation intelligent et autonomme."},
+            { 2,"Un tchat boat est un robot logiciel pouvant dialoguer avec un individu ou consommateur par le biais d’un service de conversations automatisées effectuées en grande partie en langage naturel"}
         };
         public static Dictionary<int, string> ContenuAPIMANAGEMENT = new Dictionary<int, string>() {
             { 0,"L'API Management est le processus qui consiste à publier, promouvoir et superviser les interfaces de programmation d'applications au sein d'un environnement sécurisé et évolutif."},
-            { 1,"todo contenu api 2"},
-            { 2,"todo contenu api 3"}
+            { 1,"L'API Management aide les organisations à publier des API pour des développeurs externes, partenaires et internes, afin de libérer le potentiel de leurs données et services."},
+            { 2,"L'API Management c’est un proxy entre votre API et le reste du monde. Cela vous permet de gérer la sécurité, le rate limiting, la facturation de l’API, avoir des stats d’usage et des alertes en cas d’erreurs."}
         };
         public static Dictionary<int, string> ContenuBLOCKCHAIN = new Dictionary<int, string>() {
-            { 0,"Le Block Chain est une base de données distribuée transparente, sécurisée, et fonctionnant sans organe central de contrôle."},
-            { 1,"todo contenu bc 2"},
-            { 2,"todo contenu bc 3"}
+            { 0,"La Block Chaine est une base de données distribuée transparente, sécurisée, et fonctionnant sans organe central de contrôle."},
+            { 1,"La block chaine est une technologie de stockage et de transmission d’informations, transparente, sécurisée, et fonctionnant sans organe central de contrôle"},
+            { 2,"La block chaine est souvent comparée à internet. Internet transfère des paquets de données d’un point A à un point B, alors que la blockchain permet à la « confiance » de s’établir entre des parties distinctes du système"}
         };
         public static Dictionary<int, string> ContenuMAEVA = new Dictionary<int, string>() {
-            { 0,"Maeva est une solution logicielle CGI qui permet de dématérialiser les procédures de maintenance et assister les intervenants à distance."},
-            { 1,"todo contenu maeva 2"},
-            { 2,"todo contenu maeva 3"}
+            { 0,"Maeva est une solution logicielle CGI qui permet de dématérialiser les procédures de maintenance et d'assister les intervenants à distance."},
+            { 1,"Maeva est une solution collaborative à distance permettant au sein d’un même écran de partager des documents, du son et de la vidéo."},
+            { 2,"Maeva permet de bénéficiez en un clic de l'assistance d'un expert et de trouver une réponse a vos problème sans attendre."},
+            { 3,"Maeva est une solution permettant l’assistance d’un expert à distance. Son point fort réside dans sa capacité à faire interagir plusieurs acteurs ensemble. "}
         };
         public static Dictionary<int, string> ContenuVILLAGECA = new Dictionary<int, string>() {
-            { 0,"CGI aime le crédit agricole."},
-            { 1,"todo contenu village 2"},
-            { 2,"todo contenu village 3"}
+            { 0,"CGI et le crédit agricole travaillent ensemble pour aider les jeunes entrepeneurs à démarrer leur activité."},
+            { 1,"CGI collabore avec le crédit agricole dans une pouponnière à start up."},
+            { 2,"Le crédit agricole et CGI se sont associés pour promouvoir des entreprises locales"}
         };
         public static Dictionary<int, string> ContenuWC = new Dictionary<int, string>() {
             { 0,"C'est un lieu qui permet aux humains de satisfaire certains de leurs besoins physilogiques. J'en suis par chance épargné."}

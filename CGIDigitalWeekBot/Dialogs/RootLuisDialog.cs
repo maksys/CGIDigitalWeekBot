@@ -24,9 +24,10 @@ namespace CGIDigitalWeekBot
         private const string Entity_APIM_Type = "stand::api management";
         private const string Entity_CB_Type = "stand::chat bot";
         private const string Entity_WC_Type = "Toilettes";
+        private const string Entity_CGI_Type = "cgi";
 
         //constante prenom du bot
-        const string BotName = "Serge";
+        public const string BotName = "Natacha";
 
         //Variable pour le prénom de l'utilisateur en cours
         public string UserName = "";
@@ -34,7 +35,8 @@ namespace CGIDigitalWeekBot
         public DateTime DialogLast = new DateTime();
         public DateTime DialogCurrent = new DateTime();
         public TimeSpan InactivityTime = new TimeSpan();
-
+        //Variable pour le stockge de contexte entre les différentes questions
+        EntityRecommendation ContextEntity;
 
         [LuisIntent("")]
         [LuisIntent("None")]
@@ -51,34 +53,27 @@ namespace CGIDigitalWeekBot
         [LuisIntent("Accueil")]
         public async Task Accueil(IDialogContext context, LuisResult result)
         {
-            //TODO :: effectuer le contrôle d'inactivité pour vider le user
+            var message = result;
+            //await context.Forward(new PresentationDialog(), this.ResumeAfterPresentationDialog, message, CancellationToken.None);
+            await context.PostAsync(TextHelper.GetRndText(TextHelper.FormulesMonNom) + TextHelper.GetRndText(TextHelper.FormulesQuefaire));
 
-            if (string.IsNullOrEmpty(UserName))
-            {
-                //if (DialogStart.Millisecond == 0) DialogStart = DateTime.Now;
-                var message = result;
-                PromptDialog.Text(context, ResumeAfterAccueilDialog, $"{message.Query}. {TextHelper.GetRndText(TextHelper.FormulesMonNom)} {BotName}. {TextHelper.GetRndText(TextHelper.FormulesTonNom)} ?");
-            }
-            else
-            {
-                await context.PostAsync($"{TextHelper.GetRndText(TextHelper.FormulesDejaVu)} {UserName}.");
-            }
-        }
-        private async Task ResumeAfterAccueilDialog(IDialogContext context, IAwaitable<object> result)
-        {
-            var resultFromAccueil = await result;
-            UserName = resultFromAccueil.ToString();
-            string message = $"{TextHelper.GetRndText(TextHelper.FormulesEnchante)} {resultFromAccueil}.";
-            await context.PostAsync($"{message}");
-            if (UserName.Contains(BotName))
-            {
-                Thread.Sleep(2000); //timer entre les deux réponses du bot
-                await context.PostAsync($"{TextHelper.GetRndText(TextHelper.FormulesMemePrenom)}.");
-            }
-            Thread.Sleep(2000); //timer entre les deux réponses du bot
-            await context.PostAsync($"{TextHelper.GetRndText(TextHelper.FormulesQuefaire)} ?");
             context.Wait(this.MessageReceived);
         }
+        //private async Task ResumeAfterAccueilDialog(IDialogContext context, IAwaitable<object> result)
+        //{
+        //    var resultFromAccueil = await result;
+        //    UserName = resultFromAccueil.ToString();
+        //    string message = $"{TextHelper.GetRndText(TextHelper.FormulesEnchante)} {resultFromAccueil}.";
+        //    await context.PostAsync($"{message}");
+        //    if (UserName.Contains(BotName))
+        //    {
+        //        Thread.Sleep(2000); //timer entre les deux réponses du bot
+        //        await context.PostAsync($"{TextHelper.GetRndText(TextHelper.FormulesMemePrenom)}.");
+        //    }
+        //    Thread.Sleep(2000); //timer entre les deux réponses du bot
+        //    await context.PostAsync($"{TextHelper.GetRndText(TextHelper.FormulesQuefaire)} ?");
+        //    context.Wait(this.MessageReceived);
+        //}
         #endregion
         //Présentation du salon
         [LuisIntent("Presentation")]
@@ -116,9 +111,25 @@ namespace CGIDigitalWeekBot
         [LuisIntent("Orientation")]
         public async Task Orientation(IDialogContext context, LuisResult result)
         {
+            EntityRecommendation entityreco;
             string message = "";
 
-            EntityRecommendation entityreco;
+            //var res = result;
+
+
+
+            //if (result.Entities.Count < 1 && ContextEntity != null) res.Entities. = ContextEntity;
+            
+            //if (result.Entities.Count < 1)
+            //{
+
+            //}
+            //EntityRecommendation[] entities = new EntityRecommendation[0];
+            //result.Entities.CopyTo(entities,0);
+            
+            
+            //verifie qu'il n'y a pas de d'entité (contexte dans le result et qu'il y a un contexte stocké en global pour propager le contexte entre ou et quoi
+            
             if (result.TryFindEntity(Entity_IOT_Type, out entityreco))
             {
                 message = TextHelper.GetRndText(TextHelper.OrientationIOT);
@@ -151,7 +162,7 @@ namespace CGIDigitalWeekBot
             {
                 message = $"Je suis navré mais je ne peux pas  vous orienter vers '{result.Query}'. N'hésitez pas à questionner un de mes collègues.";
             }
-
+            if (entityreco != null) ContextEntity = entityreco;
             await context.PostAsync(message);
 
             context.Wait(this.MessageReceived);
@@ -161,9 +172,11 @@ namespace CGIDigitalWeekBot
         public async Task Contenu(IDialogContext context, LuisResult result)
         {
             string message = "";
-
+            var res = result;
             EntityRecommendation entityreco;
-            if (result.TryFindEntity(Entity_IOT_Type, out entityreco))
+            //verifie qu'il n'y a pas de d'entité (contexte dans le result et qu'il y a un contexte stocké en global pour propager le contexte entre ou et quoi
+            //if (res.Entities.Count < 1 && ContextEntity != null) res.Entities.Add(ContextEntity);
+            if (res.TryFindEntity(Entity_IOT_Type, out entityreco))
             {
                 message = TextHelper.GetRndText(TextHelper.ContenuIOT);
             }
@@ -199,6 +212,7 @@ namespace CGIDigitalWeekBot
             //{
             //    message = $"Je ne connais pas encore '{result.Query}'. N'hésitez pas à demander à un de mes collègues.";
             //}
+            if (entityreco != null) ContextEntity = entityreco;
             await context.PostAsync(message);
 
             context.Wait(this.MessageReceived);
@@ -208,6 +222,31 @@ namespace CGIDigitalWeekBot
         public async Task Restauration(IDialogContext context, LuisResult result)
         {
             string message = $"CGI n'offre pas de service de restauration. Il y a un restaurant à votre disposition au rez de chaussée.";
+
+            await context.PostAsync(message);
+
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("digitalweek")]
+        public async Task DigitalWeek(IDialogContext context, LuisResult result)
+        {
+            string message = $"Porté par Nantes Métropole et produit par la Cité des Congrès de Nantes, Nantes Digital Week vous invite à partager des moments de rencontres, d’expérimentation, de formation, de création, de réflexion sur les enjeux liés au numérique.";
+
+            await context.PostAsync(message);
+
+            context.Wait(this.MessageReceived);
+        }
+        [LuisIntent("concurrence")]
+        public async Task Concurrence(IDialogContext context, LuisResult result)
+        {
+            string message = "";
+            EntityRecommendation entityreco;
+
+            if (result.TryFindEntity(Entity_IOT_Type, out entityreco))
+            {
+                message = TextHelper.GetRndText(TextHelper.ContenuIOT);
+            }
 
             await context.PostAsync(message);
 
