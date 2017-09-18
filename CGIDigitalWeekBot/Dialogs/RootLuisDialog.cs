@@ -249,7 +249,7 @@ namespace CGIDigitalWeekBot
 
         }
         //TODO proposer une note
-        [LuisIntent("Collegue")]
+        [LuisIntent("collegue")]
         public async Task Collegue(IDialogContext context, LuisResult result)
         {
             string message = $"{TextHelper.GetRndText(TextHelper.FormulesCollegue)}.";
