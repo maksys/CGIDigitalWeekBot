@@ -87,7 +87,7 @@ namespace CGIDigitalWeekBot
 
         public static Dictionary<int, string> ListeStands = new Dictionary<int, string>() {
             { 0,"Nous proposons six stands autour de notre solution Maeva, de l'Api managemente, du Block Chaine, des Objets connectés, des Chat Bot et enfin de notre partenariat avec le Village CA."},
-            { 1,"Nous disposons de six espaces de démonstration sur les thèmes suivants ; Tchat Bot, Internet des Objets, Api mamangemente, Block Chaine et Maeva plus un espace débié à notre partenariat avec le Village Crédit Agricole."},
+            { 1,"Nous disposons de six espaces de démonstration sur les thèmes suivants ; Tchat Boat, Internet des Objets, Api mamangemente, Block Chaine et Maeva plus un espace débié à notre partenariat avec le Village Crédit Agricole."},
             { 2,"Vous pouvez voir des démonstration sur les objets connecté, Maeva, L'api managemente, Le Block Chaine, les Tchat Boat et bien sur notre pratenariat avec le Village Crédit Agricole."},
             { 3,"Six espaces sont à votre disposition pour découvrir notre partanariat avec le village, notre solution maeva, les tchats bots, l'Api Managemente, les Block Chaine et les objets connectés."}
         };
@@ -96,7 +96,7 @@ namespace CGIDigitalWeekBot
         public static Dictionary<int, string> OrientationIOT = new Dictionary<int, string>() {
             { 0,"Le stand des objects connectés est juste sur votre droite mais les objets sont répartis sur chaque stand."},
             { 1,"La demonstration des objets connectés est en face des escaliers."},
-            { 2,"les objets connectés sont sur tous les stands et les informations centralisée à gauche des portes."},
+            { 2,"les objets connectés sont sur tous les stands et les informations centralisée juste à votre droite."},
             { 3,"L'espace de démonstration est situé immédiatement sur votre droite."}
         };
         public static Dictionary<int, string> OrientationChatBot = new Dictionary<int, string>() {
@@ -105,33 +105,38 @@ namespace CGIDigitalWeekBot
             { 2,"Je suis là. Le stand de détail est en face de l'escaliler."}
         };
         public static Dictionary<int, string> OrientationMaeva = new Dictionary<int, string>() {
-            { 0,"La démonstration de maeva se situe dans la salle du fond en face de vous en entrant."},
-            { 1,"Le stand Meava est immédiatement après les portes."},
-            { 2,"Vous trouverez Maeva dans la partie arrière de cet espace juste après les portes."},
+            { 0,"La démonstration de maeva se situe dans la salle du fond à votre gauche en entrant."},
+            { 1,"Le stand Meava est placé après les doubles portes tout à fait à gauche."},
+            { 2,"Vous trouverez Maeva dans la partie arrière de cet espace juste après les portes sur la gauche."},
         };
         public static Dictionary<int, string> OrientationAPIMANAGEMENT = new Dictionary<int, string>() {
-            { 0,"La démonstration API Managemente est à droite après les doubles portes."},
-            { 1,"Le stand API Managemente est situé à droite dans la salle du fond."}
+            { 0,"La démonstration API Managemente est en face après les doubles portes."},
+            { 1,"Le stand API Managemente est situé dans la salle du fond juste en entrant."}
         };
         public static Dictionary<int, string> OrientationVILLAGECA = new Dictionary<int, string>() {
             { 0,"L'espace de communication sur notre partenariat est juste derrière moi."},
             { 1,"Le stand de présentation du partenariat est situé dans mon dos."}
         };
         public static Dictionary<int, string> OrientationBLOCKCHAIN = new Dictionary<int, string>() {
-            { 0,"Le stand Block Chain se trouve tout au fond à gauche de l'espace après les portes."},
-            { 1,"L'activité Block Chain est placé après les portes au fond à gauche de la salle."}
+            { 0,"Le stand Block Chaine se trouve tout à gauche de l'espace après les portes."},
+            { 1,"L'activité Block Chaine est placé après les portes au fond à gauche de la salle."}
         };
 
         public static Dictionary<int, string> OrientationWC = new Dictionary<int, string>() {
-            { 0,"Les comodités sont au rez de chaussée."},
-            { 1,"Les toilettes sont en bas."}
+            { 0,"Les comodités sont entre les stands du partenariat et les Objets connectés."},
+            { 1,"Les toilettes sont après la porte juste à votre droite."}
+        };
+        public static Dictionary<int, string> OrientationInconnue = new Dictionary<int, string>() {
+            { 0,"Je suis navré mais je ne peux pas vous orienter. N'hésitez pas à questionner un de mes collègues."},
+            { 1,"Je ne sais pas ou se trouve ce que vous cherchez. Pensez à utiliser une application G.P.S. pour vous guider"},
+            { 2,"Je ne connais que les stands présents ici. Demandez moi la liste si besoin."}
         };
 
 
         public static Dictionary<int, string> ContenuIOT = new Dictionary<int, string>() {
             { 0,"L'internet des objets est un concept de mise en oeuvre autour d'objets qui communiquent avec des système centraux."},
-            { 1,"todo contenu iot 2"},
-            { 2,"todo contenu iot 3"}
+            { 1,"L'internet des objets consiste à collecter de la données depuis le terrain pour l'exploiter."},
+            { 2,"L'internet des objets vise par l'intermédieur de capteur à recueillir de l'information en temps réel."}
         };
         public static Dictionary<int, string> ContenuCHATBOT = new Dictionary<int, string>() {
             { 0,"Je suis un assistant conversationnel basé sur la reconnaisance du langage naturel couplé à des fonctionnalités d'intelligence artificielles."},
@@ -174,7 +179,17 @@ namespace CGIDigitalWeekBot
         };
         #endregion
 
+        public static Dictionary<int, string> FormulesAgeBot = new Dictionary<int, string>() {
+            { 0,"Je suis jeune mais en même temps déjà si sage."},
+            { 1,"Je n'est pas vraiment d'âge."},
+            { 2,"je ne connais pas ma date de naissance."}
+         };
 
+        public static Dictionary<int, string> FormulesCollegue = new Dictionary<int, string>() {
+            { 0,"Mes collègues sont Yoann, Alexandre et Frédéric."},
+            { 1,"Je travail avec Frédéric, yoann et Alexandre."},
+            { 2,"Alexandre, Frédéric et Yoann sont mes collègues."}
+         };
 
 
 

@@ -41,7 +41,7 @@ namespace CGIDigitalWeekBot
         [LuisIntent("None")]
         public async Task None(IDialogContext context, LuisResult result)
         {
-            string message = $"Je n'ai pas compris ce que vous voulez dire par '{result.Query}'. Demandez moi de l'aide ou appelez un de mes collègue à votre rescousse.";
+            string message = $"Je n'ai pas compris ce que vous voulez dire. Demandez moi de l'aide ou appelez un de mes collègue à votre rescousse.";
 
             await context.PostAsync(message);
 
@@ -97,7 +97,7 @@ namespace CGIDigitalWeekBot
             context.Wait(this.MessageReceived);
         }
 
-        //Présentation des stand
+        //Présentation du bot
         [LuisIntent("bot")]
         public async Task Bot(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
@@ -113,20 +113,7 @@ namespace CGIDigitalWeekBot
         {
             EntityRecommendation entityreco;
             string message = "";
-
-            //var res = result;
-
-
-
-            //if (result.Entities.Count < 1 && ContextEntity != null) res.Entities. = ContextEntity;
-            
-            //if (result.Entities.Count < 1)
-            //{
-
-            //}
-            //EntityRecommendation[] entities = new EntityRecommendation[0];
-            //result.Entities.CopyTo(entities,0);
-            
+                      
             
             //verifie qu'il n'y a pas de d'entité (contexte dans le result et qu'il y a un contexte stocké en global pour propager le contexte entre ou et quoi
             
@@ -160,7 +147,7 @@ namespace CGIDigitalWeekBot
             }
             else
             {
-                message = $"Je suis navré mais je ne peux pas  vous orienter vers '{result.Query}'. N'hésitez pas à questionner un de mes collègues.";
+                message = TextHelper.GetRndText(TextHelper.OrientationInconnue); 
             }
             if (entityreco != null) ContextEntity = entityreco;
             await context.PostAsync(message);
@@ -206,7 +193,7 @@ namespace CGIDigitalWeekBot
             }
             else
             {
-                message = $"Je suis navré mais je ne peux pas  vous orienter vers '{result.Query}'. N'hésitez pas à questionner un de mes collègues.";
+                message = $"Je suis navré mais je ne peux pas donner de détails sur ce sujet. N'hésitez pas à questionner un de mes collègues.";
             }
             //else
             //{
@@ -261,6 +248,15 @@ namespace CGIDigitalWeekBot
             context.Wait(this.MessageReceived);
 
         }
+        //TODO proposer une note
+        [LuisIntent("Collegue")]
+        public async Task Collegue(IDialogContext context, LuisResult result)
+        {
+            string message = $"{TextHelper.GetRndText(TextHelper.FormulesCollegue)}.";
+            await context.PostAsync(message);
+            context.Wait(this.MessageReceived);
+
+        }
 
         [LuisIntent("Patron")]
         public async Task Patron(IDialogContext context, LuisResult result)
@@ -284,8 +280,11 @@ namespace CGIDigitalWeekBot
                     {
                         message = "Mon créateur est Frédéric Macaigne, Il travail pour CGI.";
                     }
-                    PromptOptions<string> opt = new PromptOptions<string>("Dites oui si vous voulez plus d'information sur CGI.");
-                    PromptDialog.Confirm(context, ResumeAfterGeneseDialog, opt);
+
+                }
+                if (v.Contains("CGI"))
+                {
+                    message = "CGI est la cinquième plus importante entreprise indépendante de services en technologies de l'information et en gestion des processus d'affaires au monde.";
                 }
             }
             else
@@ -294,23 +293,7 @@ namespace CGIDigitalWeekBot
             }
             await context.PostAsync(message);
         }
-
-        private async Task ResumeAfterGeneseDialog(IDialogContext context, IAwaitable<bool> result)
-        {
-            var resultFromPlusInfosCGI = await result;
-            string message;
-            if (resultFromPlusInfosCGI)
-            {
-                message = "CGI est la cinquième plus importante entreprise indépendante de services en technologies de l'information et en gestion des processus d'affaires au monde.";
-            }
-            else
-            {
-                message = $"Très bien.{TextHelper.GetRndText(TextHelper.FormulesQuefaire)}";
-            }
-
-            await context.PostAsync(message);
-            //context.Wait(this.MessageReceived);
-        }
+        
 
         private async Task ResumeAfterPresentationDialog(IDialogContext context, IAwaitable<string> result)
         {
